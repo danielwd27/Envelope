@@ -1,7 +1,7 @@
 
 # Envelope 💌
 
-This is a project I made for my girlfriend for Christmas over about a month. It's built with an ESP32 CYD (Cheap-yellow-display) bought for just over $20. With a 3d printed case, this device sits on a desk or nightstand, displaying real-time messages sent over the internet. This is the most ambitious project I've created to date, I hope you find it interesting! 
+This is a project I made for my girlfriend for Christmas over about a month. It's built with an ESP32 CYD (Cheap-yellow-display) bought for just over $20. With a 3d printed case, this device sits on a desk or nightstand, displaying real-time messages sent over the internet. This is the most ambitious project I've created to date, I hope you find it interesting! :D
 
 ## Project Overview
 
@@ -61,7 +61,7 @@ If you want to build your own, it's fairly easy to do so, you will need to chang
 
 ### Credits & Attribution
 
-    Sprites: The pixel art used in this project were not created by me.
+    Sprites: The pixel art used in this project were not created by me. I do not have exact credits for any but the cat which can be found here: https://pixabay.com/gifs/cat-pixelart-walk-cycle-walking-8915/
 
     Bitmap Conversion: All graphics (Heart, Flower, Light, Clock) were converted from PNG to C arrays using the image2cpp tool by javl.
 
