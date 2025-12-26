@@ -9,6 +9,7 @@
 #include <time.h> 
 #include "keys.h" 
 #include "sprites.h"
+#include "cat.h"
 
 // Time configuration
 #define TIME_ZONE_OFFSET -21600  // UTC -6 hours (CST)
@@ -43,7 +44,13 @@ volatile bool newMessageAvailable = false;
 volatile bool requestReply = false; 
 String incomingText = ""; 
 String currentMessage = defaultMessage; // default message on startup 
+
+// Animation variables
 int textX = 0; // X position of scrolling text
+float catX = 0;          // Horizontal position
+float catSpeed = 1;    // How fast it walks
+int catFrame = 0;        // Current animation frame (0-12)
+int catDirection = 1;    // 1 = Right, -1 = Left
 
 // Objects
 TFT_eSPI tft = TFT_eSPI(); 
@@ -52,6 +59,7 @@ TFT_eSprite heartSprite = TFT_eSprite(&tft);
 TFT_eSprite clockSprite = TFT_eSprite(&tft);
 TFT_eSprite flowerSprite = TFT_eSprite(&tft); 
 TFT_eSprite lightSprite = TFT_eSprite(&tft);
+TFT_eSprite catSprite = TFT_eSprite(&tft);
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
@@ -169,6 +177,10 @@ void setup() {
   lightSprite.setColorDepth(1);
   lightSprite.createSprite(32, 32);
 
+  // F. Cat Sprite (Walking Animation)
+  catSprite.setColorDepth(1);
+  catSprite.createSprite(40, 32); // extra width to remove trailing / artifacts (4px of padding on either side)
+
   // Launch Network Task
   xTaskCreatePinnedToCore(networkTask, "NetworkTask", 20000, NULL, 1, NULL, 0);
 }
@@ -263,14 +275,43 @@ void loop() {
   heartSprite.drawBitmap(0, 0, epd_bitmap_cards_hearts, 90, 96, 1, 0);
   heartSprite.pushSprite(195, currentHeartY);
 
-  // D. TEXT & LINE
+  // D. THE CAT (Walking Animation)
+  // clear previous frame
+  //tft.fillRect((int)catX, 188, 32, 32, themes[currentTheme].bg);
+
+  static int loopCount = 0;
+  loopCount++;
+  if (loopCount > 4) { // Adjust animation speed here
+    catFrame++; 
+    if (catFrame >= 13) catFrame = 0;
+    loopCount = 0;
+  }
+  
+  // Move Cat
+  catX += (catSpeed * catDirection);
+  if (catX > 448) catDirection = -1; // Walk Left (screen width (480) - sprite width (32) = 448)
+  else if (catX < 0) catDirection = 1; // Walk Right
+
+  // Draw Cat
+  catSprite.setBitmapColor(themes[currentTheme].text, themes[currentTheme].bg);
+  catSprite.fillSprite(0);
+  
+  if (catDirection == 1) { // right
+      catSprite.drawBitmap(4, 0, epd_bitmap_cat_right[catFrame], 32, 32, 0, 1);
+  } else { // left
+      catSprite.drawBitmap(4, 0, epd_bitmap_cat_left[catFrame], 32, 32, 0, 1);
+  }
+
+  catSprite.pushSprite((int)catX-4, 188);
+
+  // E. TEXT & LINE
   textSprite.fillSprite(themes[currentTheme].bg); 
   textSprite.setTextColor(themes[currentTheme].text, themes[currentTheme].bg); 
   textSprite.drawString(currentMessage, textX, 30);
   textSprite.fillRect(0, 0, 480, 5, themes[currentTheme].accent); 
   textSprite.pushSprite(0, 220);
 
-  // E. CLOCK
+  // F. CLOCK
   struct tm timeinfo;
   clockSprite.setBitmapColor(themes[currentTheme].accent, themes[currentTheme].bg);
   clockSprite.fillSprite(0);
