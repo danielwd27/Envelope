@@ -1,10 +1,11 @@
-Envelope 💌
+
+# Envelope 💌
 
 This is a project I made for my girlfriend for Christmas over about a month. It's built with an ESP32 CYD (Cheap-yellow-display) bought for just over $20. With a 3d printed case, this device sits on a desk or nightstand, displaying real-time messages sent over the internet. This is the most ambitious project I've created to date, I hope you find it interesting! 
 
-Project Overview
+## Project Overview
 
-Features
+### Features
 
     Real-Time Messaging: Scrolls text messages sent from a specific Telegram account.
 
@@ -20,13 +21,13 @@ Features
 
     Factory Reset: Holding the screen during power-up wipes saved WiFi credentials.
 
-Hardware Used
+### Hardware Used
 
     Board: ESP32-32E (Commonly known as the "Cheap Yellow Display" or CYD). My specific version is from Hosyond on Amazon
 
     Display: 480x320 4.0" TFT Touchscreen (ST7796S Driver).
 
-Software & Libraries
+### Software & Libraries
 
 This project is built using PlatformIO and relies (heavily) on the following libraries:
 
@@ -38,7 +39,7 @@ This project is built using PlatformIO and relies (heavily) on the following lib
 
     ArduinoJson (JSON parsing for Telegram)
 
-How to Use
+### How to Use
 
     First Boot: The screen will turn Blue. Connect your phone to the WiFi network "Envelope Setup" and enter your home WiFi credentials.
 
@@ -48,7 +49,7 @@ How to Use
 
     Changing Settings: Use the icons in the top right to change the Color Theme or Screen Brightness.
 
-Creating Your Own
+### Creating Your Own
 
 If you want to build your own, it's fairly easy to do so, you will need to change/tweak the following:
 
@@ -58,7 +59,7 @@ If you want to build your own, it's fairly easy to do so, you will need to chang
 
     If using a different display: Certain drivers or screen dimensions may need tweaking. This is configured for a specific 480x320 display, yours might be different which could change pin numbering.
 
-Credits & Attribution
+### Credits & Attribution
 
     Sprites: The pixel art used in this project were not created by me.
 
