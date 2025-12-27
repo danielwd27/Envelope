@@ -158,7 +158,7 @@ void setup() {
   // 4. SETUP SPRITES
   
   // A. Text Sprite
-  textSprite.createSprite(480, 50);
+  textSprite.createSprite(480, 60);
   textSprite.setTextSize(3);
 
   // B. Heart Sprite
@@ -179,7 +179,7 @@ void setup() {
 
   // F. Cat Sprite (Walking Animation)
   catSprite.setColorDepth(1);
-  catSprite.createSprite(40, 32); // extra width to remove trailing / artifacts (4px of padding on either side)
+  catSprite.createSprite(49, 32); // extra width to remove trailing / artifacts (4px of padding on either side)
 
   // Launch Network Task
   xTaskCreatePinnedToCore(networkTask, "NetworkTask", 20000, NULL, 1, NULL, 0);
@@ -277,7 +277,6 @@ void loop() {
 
   // D. THE CAT (Walking Animation)
   // clear previous frame
-  //tft.fillRect((int)catX, 188, 32, 32, themes[currentTheme].bg);
 
   static int loopCount = 0;
   loopCount++;
@@ -302,14 +301,14 @@ void loop() {
       catSprite.drawBitmap(4, 0, epd_bitmap_cat_left[catFrame], 32, 32, 0, 1);
   }
 
-  catSprite.pushSprite((int)catX-4, 188);
+  catSprite.pushSprite((int)catX-4, 218);
 
   // E. TEXT & LINE
   textSprite.fillSprite(themes[currentTheme].bg); 
   textSprite.setTextColor(themes[currentTheme].text, themes[currentTheme].bg); 
-  textSprite.drawString(currentMessage, textX, 30);
+  textSprite.drawString(currentMessage, textX, 20);
   textSprite.fillRect(0, 0, 480, 5, themes[currentTheme].accent); 
-  textSprite.pushSprite(0, 220);
+  textSprite.pushSprite(0, 250);
 
   // F. CLOCK
   struct tm timeinfo;
