@@ -3,6 +3,8 @@
 
 This is a project I made for my girlfriend for Christmas over about a month. It's built with an ESP32 CYD (Cheap-yellow-display) bought for just over $20. With a 3d printed case, this device sits on a desk or nightstand, displaying real-time messages sent over the internet. This is the most ambitious project I've created to date, I hope you find it interesting! :D
 
+![Envelope Example Image](https://people.tamu.edu/~ddavis6q/resources/envelope_3)
+
 ## Project Overview
 
 ### Features
